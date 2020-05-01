@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+
+        <!-- used by the root logger, print everything in the application -->
+        <File name="GeneralFileAppender" fileName="logs/general.log" append="false" immediateFlush="true">
+            <PatternLayout pattern="%d %p %c{1.} [%t] %m%n" />
+        </File>
+
+        <!-- used mainly by the entrypoints, print to stdout -->
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%highlight{%level}{}] [%t] %logger{36} - %msg%n"/>
+        </Console>
+
+    </Appenders>
+    <Loggers>
+        <Root level="trace">
+            <AppenderRef ref="GeneralFileAppender" />
+        </Root>
+
+        <!-- only interested in what i have to say -->
+        <Logger name="tglanz.memorylayouts">
+            <AppenderRef ref="ConsoleAppender">
+                <Filters>
+                    <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY" />
+                </Filters>
+            </AppenderRef>
+        </Logger>
+    </Loggers>
+</Configuration>
